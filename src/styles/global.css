@@ -1,0 +1,15 @@
+/* global.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+.bg-gradient {
+  background: linear-gradient(180deg, #555555 0%, #111111 100%);
+  min-height: 100vh;
+}
