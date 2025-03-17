@@ -82,17 +82,20 @@ const slides = await response.json();
       gap: 0.8vh;
       justify-content: center;
     }
-
     .indicator {
       height: auto;
       max-height: 7vh;
       border: 1vh solid #555555;
       box-sizing: border-box;
       cursor: pointer;
+      transition:
+        border 0.5s ease,
+        transform 0.5s ease;
     }
 
     .indicator.active {
       opacity: 1;
+      transform: scale(1.1);
       border: 1vh solid #3a5ae9;
     }
 

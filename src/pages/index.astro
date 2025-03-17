@@ -162,7 +162,6 @@ const slides = await response.json();
                 alt="Slide Image"
               />
             )}
-
             {item.featured_logo && (
               <img
                 src={`/image/image_1/${item.featured_logo}`}
@@ -171,13 +170,10 @@ const slides = await response.json();
                 alt="Featured Logo"
               />
             )}
-
+            {/* Попробовать массив расположений? */}
             {item.featured_text && (
               <div
                 class="Description"
-                Попробовать
-                массив
-                расположений?
                 style={`top: ${item.text_y * 100}%; left: ${item.text_x * 100}%;`}
               >
                 {item.featured_text}
