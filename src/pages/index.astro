@@ -25,6 +25,12 @@ const slides = await response.json();
       align-items: start;
       justify-content: center;
     }
+    .carousel img {
+      width: 100%;
+      height: 100%;
+      max-width: none;
+    }
+
     .slide {
       position: relative;
       top: auto;
@@ -39,12 +45,6 @@ const slides = await response.json();
     }
     a svg {
       font-size: 16px;
-    }
-    .carousel img {
-      width: 100%;
-      height: 100%;
-      max-width: none;
-      /* object-fit: cover; */
     }
     .slide.active {
       display: block;
@@ -150,34 +150,40 @@ const slides = await response.json();
               item.links_to_distribution_stores
             )}
           >
-            {item.featured_video ? ( // поправить контролы, обернуть в ссылку
-              <video controls autoplay playsinline muted preload="metadata">
+            {item.featured_video ? (
+              <video
+                muted
+                poster="/image/image_1/img/08.jpg"
+                preload="metadata"
+              >
                 <source src={item.featured_video} type="video/mp4" />
+                <source src={item.featured_video} type="video/ogg" />
                 Your browser does not support the video tag.
               </video>
             ) : (
-              <img
-                src={`/image/image_1/${item.featured_image}`}
-                loading="lazy"
-                alt="Slide Image"
-              />
-            )}
-            {item.featured_logo && (
-              <img
-                src={`/image/image_1/${item.featured_logo}`}
-                class="logo"
-                style={`top: ${item.logo_y * 100}%; left: ${item.logo_x * 100}%; transform: scale(${item.logo_scale})`}
-                alt="Featured Logo"
-              />
-            )}
-            {/* Попробовать массив расположений? */}
-            {item.featured_text && (
-              <div
-                class="Description"
-                style={`top: ${item.text_y * 100}%; left: ${item.text_x * 100}%;`}
-              >
-                {item.featured_text}
-              </div>
+              <>
+                <img
+                  src={`/image/image_1/${item.featured_image}`}
+                  loading="lazy"
+                  alt="Slide Image"
+                />
+                {item.featured_logo && (
+                  <img
+                    src={`/image/image_1/${item.featured_logo}`}
+                    class="logo"
+                    style={`top: ${item.logo_y * 100}%; left: ${item.logo_x * 100}%; transform: scale(${item.logo_scale})`}
+                    alt="Featured Logo"
+                  />
+                )}
+                {item.featured_text && (
+                  <div
+                    class="Description"
+                    style={`top: ${item.text_y * 100}%; left: ${item.text_x * 100}%;`}
+                  >
+                    {item.featured_text}
+                  </div>
+                )}
+              </>
             )}
           </div>
         ))
@@ -410,9 +416,15 @@ const slides = await response.json();
       }
 
       const video = currentSlideElement.querySelector("video");
+      const linksContainer = document.querySelector(".links");
+
       if (video) {
-        video.play(); // не работает, поправить
+        linksContainer.style.display = "none";
+      } else {
+        linksContainer.style.display = "flex";
+        updateLinks(currentSlideElement);
       }
+
       updateLinks(currentSlideElement);
 
       currentSlide = index;
