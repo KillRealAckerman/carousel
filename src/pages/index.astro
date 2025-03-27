@@ -165,7 +165,7 @@ const slides = await response.json();
             )}
           >
             {item.featured_video ? (
-              <video autoplay muted preload="metadata">
+              <video autoplay controls muted preload="metadata">
                 <source src={item.featured_video} type="video/mp4" />
                 <source src={item.featured_video} type="video/ogg" />
                 Your browser does not support the video tag.
