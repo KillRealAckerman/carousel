@@ -198,7 +198,6 @@ const slides = await response.json();
         }
       }
 
-      // Автовоспроизведение видео (если в слайде есть <video>)
       const currentSlideElement = slides[index];
       const video = currentSlideElement.querySelector("video");
       if (video) {

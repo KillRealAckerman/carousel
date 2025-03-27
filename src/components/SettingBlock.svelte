@@ -50,7 +50,7 @@
   }
 </script>
 
-<div class="hidden sm-mobile:flex justify-center items-center ml-auto">
+<div class="hidden sm-mobile:flex justify-center items-center ml-auto z-20">
   <button
     class="bg-grey-50 flex justify-center items-center w-10 h-10 rounded-[7px] m-[0.5rem] setting-button"
     on:click={toggleDropdown}

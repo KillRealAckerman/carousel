@@ -25,6 +25,12 @@ const slides = await response.json();
       align-items: start;
       justify-content: center;
     }
+    .carousel img {
+      width: 100%;
+      height: 100%;
+      max-width: none;
+    }
+
     .slide {
       position: relative;
       top: auto;
@@ -39,12 +45,6 @@ const slides = await response.json();
     }
     a svg {
       font-size: 16px;
-    }
-    .carousel img {
-      width: 100%;
-      height: 100%;
-      max-width: none;
-      /* object-fit: cover; */
     }
     .slide.active {
       display: block;
@@ -128,6 +128,20 @@ const slides = await response.json();
       width: 4vh;
       height: 4vh;
     }
+
+    .video-toggle-button {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border: none;
+      color: white;
+      font-size: 3rem;
+      width: 60px;
+      height: 60px;
+      cursor: pointer;
+      z-index: 2;
+    }
   </style>
 </head>
 <body>
@@ -150,34 +164,36 @@ const slides = await response.json();
               item.links_to_distribution_stores
             )}
           >
-            {item.featured_video ? ( // поправить контролы, обернуть в ссылку
-              <video controls autoplay playsinline muted preload="metadata">
+            {item.featured_video ? (
+              <video autoplay controls muted preload="metadata">
                 <source src={item.featured_video} type="video/mp4" />
+                <source src={item.featured_video} type="video/ogg" />
                 Your browser does not support the video tag.
               </video>
             ) : (
-              <img
-                src={`/image/image_1/${item.featured_image}`}
-                loading="lazy"
-                alt="Slide Image"
-              />
-            )}
-            {item.featured_logo && (
-              <img
-                src={`/image/image_1/${item.featured_logo}`}
-                class="logo"
-                style={`top: ${item.logo_y * 100}%; left: ${item.logo_x * 100}%; transform: scale(${item.logo_scale})`}
-                alt="Featured Logo"
-              />
-            )}
-            {/* Попробовать массив расположений? */}
-            {item.featured_text && (
-              <div
-                class="Description"
-                style={`top: ${item.text_y * 100}%; left: ${item.text_x * 100}%;`}
-              >
-                {item.featured_text}
-              </div>
+              <>
+                <img
+                  src={`/image/image_1/${item.featured_image}`}
+                  loading="lazy"
+                  alt="Slide Image"
+                />
+                {item.featured_logo && (
+                  <img
+                    src={`/image/image_1/${item.featured_logo}`}
+                    class="logo"
+                    style={`top: ${item.logo_y * 100}%; left: ${item.logo_x * 100}%; transform: scale(${item.logo_scale})`}
+                    alt="Featured Logo"
+                  />
+                )}
+                {item.featured_text && (
+                  <div
+                    class="Description"
+                    style={`top: ${item.text_y * 100}%; left: ${item.text_x * 100}%;`}
+                  >
+                    {item.featured_text}
+                  </div>
+                )}
+              </>
             )}
           </div>
         ))
@@ -217,6 +233,9 @@ const slides = await response.json();
           </svg>
         </button>
       </div>
+      <button class="video-toggle-button" onclick="toggleVideo(event, this)">
+        Пауза
+      </button>
       <div class="indicators">
         {
           slides.map((_, index) => (
@@ -242,6 +261,22 @@ const slides = await response.json();
       textarea.innerHTML = text;
       return textarea.value;
     }
+    function toggleVideo(event, button) {
+      // event.stopPropagation();
+      const activeSlide = document.querySelector(".slide.active");
+      // if (!activeSlide) return;
+      const video = activeSlide.querySelector("video");
+      // if (!video) return;
+
+      if (video.paused) {
+        video.play();
+        button.innerHTML = "Пауза";
+      } else {
+        video.pause();
+        button.innerHTML = "Идёт";
+      }
+    }
+
     function updateLinks(slide) {
       const linksContainer = document.querySelector(".links");
       linksContainer.innerHTML = "<span>Buy it for</span>";
@@ -251,7 +286,7 @@ const slides = await response.json();
         Object.entries(links).forEach(([platform, url]) => {
           const linkEl = document.createElement("a");
           linkEl.href = url as string;
-          // Перекинуть в отдельный файл?
+          // Перекинуть в отдельный файл
           if (platform === "xbox") {
             linkEl.innerHTML = `
               <svg width="48" height="47" viewBox="0 0 48 47" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -380,6 +415,7 @@ const slides = await response.json();
 
       const currentSlideElement = slides[index];
 
+      // Обновляем описание
       const descriptionElement =
         currentSlideElement.querySelector(".Description");
       if (descriptionElement) {
@@ -393,6 +429,7 @@ const slides = await response.json();
         descriptionElement.style.left = textX * 100 + "%";
       }
 
+      // Обновляем лого
       const logoElement = document.querySelector(".logo");
       if (logoElement) {
         const logoY =
@@ -401,7 +438,6 @@ const slides = await response.json();
           parseFloat(currentSlideElement.getAttribute("data-logo-x")) || 0;
         const logoScale =
           parseFloat(currentSlideElement.getAttribute("data-logo-scale")) || 1;
-
         logoElement.src =
           "/image/image_1/" + currentSlideElement.getAttribute("data-logo");
         logoElement.style.top = logoY * 100 + "%";
@@ -410,11 +446,20 @@ const slides = await response.json();
       }
 
       const video = currentSlideElement.querySelector("video");
-      if (video) {
-        video.play(); // не работает, поправить
-      }
-      updateLinks(currentSlideElement);
+      const linksContainer = document.querySelector(".links");
+      const toggleButton = document.querySelector(".video-toggle-button");
 
+      if (video) {
+        linksContainer.style.display = "none";
+        video.play();
+        toggleButton.style.display = "block";
+      } else {
+        linksContainer.style.display = "flex";
+        updateLinks(currentSlideElement);
+        toggleButton.style.display = "none";
+      }
+
+      updateLinks(currentSlideElement);
       currentSlide = index;
     }
 
@@ -434,6 +479,7 @@ const slides = await response.json();
         showSlide(Number(index));
       });
     });
+    window.toggleVideo = toggleVideo;
     showSlide(0); // дляпервого лого нужно
   </script>
 </body>
