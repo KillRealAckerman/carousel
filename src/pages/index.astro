@@ -136,7 +136,7 @@ const slides = await response.json();
       transform: translate(-50%, -50%);
       border: none;
       color: white;
-      font-size: 2rem;
+      font-size: 3rem;
       width: 60px;
       height: 60px;
       cursor: pointer;
@@ -262,11 +262,11 @@ const slides = await response.json();
       return textarea.value;
     }
     function toggleVideo(event, button) {
-      event.stopPropagation();
+      // event.stopPropagation();
       const activeSlide = document.querySelector(".slide.active");
-      if (!activeSlide) return;
+      // if (!activeSlide) return;
       const video = activeSlide.querySelector("video");
-      if (!video) return;
+      // if (!video) return;
 
       if (video.paused) {
         video.play();
@@ -286,7 +286,7 @@ const slides = await response.json();
         Object.entries(links).forEach(([platform, url]) => {
           const linkEl = document.createElement("a");
           linkEl.href = url as string;
-          // Перекинуть в отдельный файл?
+          // Перекинуть в отдельный файл
           if (platform === "xbox") {
             linkEl.innerHTML = `
               <svg width="48" height="47" viewBox="0 0 48 47" fill="none" xmlns="http://www.w3.org/2000/svg">

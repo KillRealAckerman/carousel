@@ -4,7 +4,7 @@ const pool = new Pool({
   user: "kirilltabolin",
   host: "localhost",
   database: "carousel_db",
-  password: "", // Укажи пароль, если есть
+  password: "",
   port: 5432,
 });
 
