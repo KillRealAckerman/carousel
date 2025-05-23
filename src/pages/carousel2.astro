@@ -84,13 +84,13 @@ const slides = await response.json();
       align-items: center;
       overflow-x: auto;
       overflow-y: hidden;
-      max-width: 58vh;
+      max-width: 51vh;
       height: 8vh;
-      padding-left: 0.5vh;
+      padding-left: 2vh;
     }
     .indicator {
       height: auto;
-      max-height: 7vh;
+      max-height: 6vh;
       border: 1vh solid #555555;
       box-sizing: border-box;
       cursor: pointer;
@@ -104,7 +104,10 @@ const slides = await response.json();
       transform: scale(1.1);
       border: 1vh solid #3a5ae9;
     }
-
+    button svg {
+      width: 2vh;
+      height: 2vh;
+    }
     .hidden {
       display: none;
     }
