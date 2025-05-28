@@ -1,0 +1,216 @@
+---
+import Header from "../components/Header.svelte";
+import "../styles/global.css";
+import Footer from "../components/Footer.svelte";
+
+const response = await fetch("http://localhost:3000/api/slides");
+const slides = await response.json();
+let players = [
+  { nickname: "s1mple", KD: 1.2, ADR: 1.2 },
+  { nickname: "Boombl4", KD: 1.2, ADR: 1.2 },
+  { nickname: "electronic", KD: 1.2, ADR: 1.2 },
+  { nickname: "perfecto", KD: 1.2, ADR: 1.2 },
+  { nickname: "B1t", KD: 1.2, ADR: 1.2 },
+];
+---
+
+<head>
+  <title>Matches</title>
+  <meta charset="UTF-8" />
+
+  <style>
+    .bg-gradient {
+      background: linear-gradient(180deg, #555555 0%, #111111 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: start;
+      align-items: center;
+    }
+    h1 {
+      font-size: 5rem;
+      color: #fff;
+      margin-top: 1rem;
+    }
+    .Team {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 3rem;
+      background-color: transparent;
+      border: solid 0.2rem #fff;
+      border-radius: 1rem;
+      color: #fff;
+      padding: 0.5rem;
+    }
+    /* VS */
+    .TeamBlock + span {
+      display: flex;
+      justify-content: start;
+      align-items: center;
+      font-size: 5rem;
+      color: #fff;
+    }
+    .teams {
+      display: flex;
+      justify-content: space-between;
+      flex-direction: row;
+      align-items: center;
+      width: 100%;
+      gap: 1rem;
+    }
+    .TeamBlock {
+      font-size: 3rem;
+      background-image: url("public/pngegg.png");
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      flex: 1;
+      border-radius: 1rem;
+      width: 40vw;
+    }
+    .Blue {
+      z-index: 1;
+      border: solid 0.4rem #5f72ff;
+      transition: all 0.5s ease;
+    }
+    .TeamBlock div {
+      background-color: rgb(40, 38, 38);
+      color: #ccc;
+      width: 100%;
+    }
+    .NAME {
+      display: flex;
+      width: 100%;
+      flex-direction: row;
+      justify-content: space-evenly;
+      align-items: center;
+    }
+
+    .TeamBlock:first-child div {
+      display: flex;
+      color: #5f72ff;
+      border-bottom: solid 0.1rem #5f72ff;
+      white-space: nowrap;
+      justify-content: space-between;
+      padding-left: 2rem;
+    }
+    .TeamBlock:last-child div {
+      display: flex;
+
+      justify-content: space-between;
+      color: #ff5f5f;
+      border-bottom: solid 0.1rem #ff5f5f;
+      text-align: end;
+      padding-right: 2rem;
+    }
+    .TeamBlock:last-child {
+      border: solid 0.4rem #ff5f5f;
+    }
+    .TeamBlock div:last-child {
+      border-bottom: none;
+    }
+    .TeamBlock:first-child div span {
+      text-align: end;
+    }
+    .Blue span {
+      z-index: 2;
+      background-color: #555555;
+      color: #5d79f4;
+      padding-right: 1rem;
+      padding-left: 1rem;
+      transition: all 0.5s ease;
+      width: 2vw;
+      overflow: hidden;
+    }
+    .Blue span:hover {
+      background-color: #5d79f4;
+      width: 25vw;
+    }
+    .Blue span {
+      z-index: 2;
+      background-color: #555555;
+      padding-right: 1rem;
+      padding-left: 1rem;
+      transition: all 0.5s ease;
+      width: 2vw;
+      overflow: hidden;
+    }
+    .Red span:hover {
+      background-color: #ff5f5f;
+      width: 25vw;
+    }
+    .Red span {
+      z-index: 2;
+      background-color: #555555;
+      padding-right: 1rem;
+      padding-left: 1rem;
+      transition: all 0.5s ease;
+      width: 2vw;
+      overflow: hidden;
+    }
+  </style>
+</head>
+<Header client:only />
+<main class="bg-gradient">
+  <div class="NAME">
+    <select name="theme" id="theme" class="Team">
+      <option value="Faze Clan">Faze Clan</option>
+      <option value="Team Vitality">Team Vitality</option>
+      <option value="Team Liquid">Team Liquid</option>
+      <option value="TSM">TSM</option>
+      <option value="Fnatic">Fnatic</option>
+      <option value="Cloud9">Cloud9</option>
+      <option value="G2">G2</option>
+      <option value="Natus Vincere">Natus Vincere</option>
+    </select>
+    <h1>Matches</h1>
+    <select name="theme" id="theme" class="Team">
+      <option value="Faze Clan">Faze Clan</option>
+      <option value="Team Vitality">Team Vitality</option>
+      <option value="Team Liquid">Team Liquid</option>
+      <option value="TSM">TSM</option>
+      <option value="Fnatic">Fnatic</option>
+      <option value="Cloud9">Cloud9</option>
+      <option value="G2">G2</option>
+      <option value="Natus Vincere">Natus Vincere</option>
+    </select>
+  </div>
+
+  <div class="teams">
+    <div class="TeamBlock Blue">
+      {
+        players.map((player) => (
+          <>
+            <div>
+              {player.nickname} <span>i</span>
+            </div>
+          </>
+        ))
+      }
+    </div>
+    <span>VS</span>
+    <div class="TeamBlock Red">
+      {
+        players.map((player) => (
+          <div>
+            <span>i</span>
+            {player.nickname}
+          </div>
+        ))
+      }
+    </div>
+  </div>
+  <div></div>
+</main>
+<Footer />
+<script>
+  //   document.querySelectorAll(".TeamBlock").forEach((el) => {
+  //     el.style.display = "flex";
+  //     el.style.flexDirection = "column";
+  //     el.style.justifyContent = "center";
+  //     el.style.alignItems = "center";
+  //     el.style.gap = "1.5rem";
+  //   });
+</script>

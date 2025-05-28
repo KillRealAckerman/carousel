@@ -30,7 +30,7 @@
         <div
           class="text-lg FHD:text-[1vw] font-medium flex items-center justify-center w-[3.75rem] FHD:w-[3.75vw]"
         >
-          <a href="/" class="dropdown">Games</a>
+          <a href="http://localhost:4321/matches" class="dropdown">Games</a>
         </div>
       </div>
       <div class="w-[2.625rem] FHD:w-[2.6vw]"></div>
