@@ -41,22 +41,6 @@
           <a href="/" class="dropdown">Blog</a>
         </div>
       </div>
-      <div class="w-[3.75rem] FHD:w-[3.75vw] flex ml-[4vh]">
-        <div
-          class="text-lg FHD:text-[1vw] font-medium flex items-center justify-center w-[2.4375rem] FHD:w-[2.4vw]"
-        >
-          <a href="http://localhost:4321/" class="dropdown">Carousel1</a>
-        </div>
-      </div>
-      <div class="w-[3.75rem] FHD:w-[3.75vw] flex ml-[4vh]">
-        <div
-          class="text-lg FHD:text-[1vw] font-medium flex items-center justify-center w-[2.4375rem] FHD:w-[2.4vw]"
-        >
-          <a href="http://localhost:4321/carousel2" class="dropdown"
-            >Carousel2</a
-          >
-        </div>
-      </div>
     </div>
   </div>
 
