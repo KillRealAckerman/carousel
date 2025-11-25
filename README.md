@@ -1,4 +1,4 @@
-https://drive.google.com/file/d/1_Cc1z0ncE_RaZZfQngI7rXlwFzTZRiCF/view?usp=sharing
+https://drive.google.com/file/d/1_Cc1z0ncE_RaZZfQngI7rXlwFzTZRiCF/view?usp=sharing  (В видео нет демонстрации работы нейронной сети)
 # carousel
 ## Изменённая БД( смотреть в файле next/for_sql.sql)
 
